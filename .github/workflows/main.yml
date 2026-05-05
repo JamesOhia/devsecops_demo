@@ -20,7 +20,7 @@ jobs:
       run: pip install bandit
 
     - name: Run Bandit Scan
-      run: bandit -r . --confidence-level medium --severity-level medium -f json -o bandit-report.json
+      run: bandit --confidence-level medium --severity-level medium -r . -f json -o bandit-report.json
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
