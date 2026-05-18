@@ -15,14 +15,11 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 
-# Socket Security key required by dhi.io hardened image to allow pip installs
-ARG SOCKET_API_KEY
-ENV SOCKET_API_KEY=${SOCKET_API_KEY}
-
 # Install dependencies
 RUN python -m pip install --no-cache-dir pip==22.0.4
 COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+RUN --mount=type=secret,id=socket_api_key,env=SOCKET_API_KEY \
+    pip install --no-cache-dir -r requirements.txt
 
 
 # copy project
