@@ -1,4 +1,4 @@
-FROM dhi.io/python:3-debian13-sfw-ent-dev
+FROM python:3.11-slim-bookworm
 
 # set work directory
 WORKDIR /app
@@ -18,8 +18,7 @@ ENV PYTHONUNBUFFERED=1
 # Install dependencies
 RUN python -m pip install --no-cache-dir pip==22.0.4
 COPY requirements.txt requirements.txt
-RUN --mount=type=secret,id=socket_api_key,env=SOCKET_API_KEY \
-    pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 
 # copy project

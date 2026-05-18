@@ -43,10 +43,7 @@ jobs:
         docker_version: "24.0" 
 
     - name: Build Docker Image
-      run: docker build --secret id=socket_api_key,env=SOCKET_API_KEY -f Dockerfile -t myapp:latest .
-      env:
-        DOCKER_BUILDKIT: 1
-        SOCKET_API_KEY: ${{ secrets.SOCKET_API_KEY }}
+      run: docker build -f Dockerfile -t myapp:latest .
 
     - name: Run Docker Scout
       run: |
