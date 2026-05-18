@@ -43,22 +43,14 @@ jobs:
         docker_version: "24.0" 
 
     - name: Build Docker Image
-      run: docker build --build-arg SOCKET_API_KEY=${{ secrets.SOCKET_API_KEY }} -f Dockerfile -t myapp:latest .
-
-    #- name: Run Docker Scout
-     # run:  |  
-       #     curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
-        #    sh install-scout.sh
-         #   echo ${{secrets.DOCKER_PASS}} | docker login -u $#{{secrets.DOCKER_USER}} --password-stdin
-         #   docker scout quickview
-          #  docker scout cves
+      run: docker build -f Dockerfile -t myapp:latest .
 
     - name: Run Docker Scout
       uses: docker/scout-action@v1
       with:
-        command:  quickview, cves
         dockerhub-user: ${{secrets.DOCKER_USER}}
         dockerhub-password: ${{secrets.DOCKER_PASS}}
+        command:  quickview, cves
         only-severities: critical, high
 
 
